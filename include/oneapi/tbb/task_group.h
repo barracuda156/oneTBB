@@ -203,7 +203,7 @@ private:
     } my_traits;
 
     static_assert(sizeof(context_traits) == 4, "Traits shall fit into 4 bytes.");
-  #else // Everything else besides Darwin PPC:
+  #else // Everything else besides Darwin ppc32:
     //! The context traits.
     struct context_traits {
         bool fp_settings        : 1;
@@ -435,8 +435,8 @@ private:
     friend class task_group_base;
 }; // class task_group_context
 
-#if defined __APPLE__ && defined __POWERPC__
-    // static_assert(sizeof(task_group_context) == 128, "Wrong size of task_group_context");
+#if defined __APPLE__ && defined __ppc__ // case of Darwin ppc32
+    static_assert(sizeof(task_group_context) == 136, "Wrong size of task_group_context");
 #else
     static_assert(sizeof(task_group_context) == 128, "Wrong size of task_group_context");
 #endif
